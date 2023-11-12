@@ -1,4 +1,5 @@
-/* Variable declaration: 
+/* 
+Variable declaration: 
 val = read only
 var = read write
 */
@@ -15,9 +16,9 @@ val GenderMap = mapOf("m" to "Male", "f" to "Female", "nb" to "Non-binary")
 
 // classes
 open class Sergal(name: String, race: String, gender: String) {
-    var name = name
-    var race = race
-    var gender = gender
+    var Name = name
+    var Race = race
+    var Gender = gender
 }
 
 // inheritance
@@ -25,12 +26,12 @@ class Shigu(name: String, race: String, gender: String): Sergal(name, race, gend
     val damage = (1..10).random()
     fun attack() {
         println("Halt in the name of the great General Rain!")
-        println("The towering Shigu warrior $name took a swipe at you and did $damage damage.")
-        //println(getObject().x)
+        println("The towering Shigu warrior $Name took a swipe at you and did $damage damage.")
     }
 }
 
-/* Class instance
+/*
+ Class instance
 issue assignment is nullable so use the not nul operator !! 
 could also have used ?: to assign a default if null
 */ 
@@ -42,17 +43,18 @@ fun main() {
     println("Merp!")
     mainArrowFunction()
     
-    val name = Hiroji.name
-    val race = Hiroji.race
+    val name = Hiroji.Name
+    val race = Hiroji.Race
     var gender: String 
 
-    when (Hiroji.gender) {
+    when (Hiroji.Gender) {
         "Male" -> gender = GenderMap["m"]!!
         "Female" -> gender = GenderMap["f"]!!
         else -> {
             gender = GenderMap["nb"]!!
         }
     }
+
     println("*Super smash bros announcer voice")
     println("A new Sergal has appeared.")
     println("Name: $name")
@@ -61,6 +63,4 @@ fun main() {
 
     println("Oh no you were spotted!")
     Warrior.attack()
-
-
 }
