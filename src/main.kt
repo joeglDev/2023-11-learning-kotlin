@@ -45,5 +45,16 @@ fun main() {
     println("Gender: $gender")
 
     println("Oh no you were spotted!")
-    Warrior.attack()
+    Warrior.alertCry()
+
+    attackCycle()
+    attackCycle()
+}
+
+fun attackCycle() {
+    println()
+    Hiroji.receiveDamage(Warrior.attack())
+
+    Hiroji.getHp()
+    Warrior.getHp()
 }
