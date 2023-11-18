@@ -1,5 +1,7 @@
 import Classes.Sergal
 import Classes.Shigu
+import Constants.SergalRaceMap
+import Constants.GenderMap
 
 /* 
 Variable declaration: 
@@ -10,11 +12,6 @@ val user = "Hiroji"
 
 // Arrow function definition with string interpolation
 fun mainArrowFunction() = println("Hello, $user.")
-
-// maps
-val SergalRaceMap = mapOf("northern" to "Northern", "eastern" to "Eastern", "southern" to "Southern", "western" to "Western")
-
-val GenderMap = mapOf("m" to "Male", "f" to "Female", "nb" to "Non-binary")
 
 /*
  Class instance
