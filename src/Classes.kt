@@ -1,8 +1,13 @@
 package Classes
 
+import Constants.EltusSpecies
+import Constants.Gender
+import Constants.SergalRace
+
 
 // classes
-open class Sergal(name: String, race: String, gender: String) {
+open class Sergal(name: String, race: SergalRace, gender: Gender) {
+    val Species = EltusSpecies.Sergal
     var Name = name
     var Race = race
     var Gender = gender
@@ -28,7 +33,7 @@ open class Sergal(name: String, race: String, gender: String) {
 }
 
 // inheritance
-class Shigu(name: String, race: String, gender: String): Sergal(name, race, gender) {
+class Shigu(name: String, race: SergalRace, gender: Gender): Sergal(name, race, gender) {
     override val BaseHp = 100
     override var CurrentHp = BaseHp
 

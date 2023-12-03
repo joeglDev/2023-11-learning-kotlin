@@ -2,6 +2,7 @@ import Classes.Sergal
 import Classes.Shigu
 import Constants.SergalRaceMap
 import Constants.GenderMap
+import Constants.Gender
 
 /* 
 Variable declaration: 
@@ -26,13 +27,14 @@ fun main() {
     println("Merp!")
     mainArrowFunction()
     
+    val species = Hiroji.Species
     val name = Hiroji.Name
     val race = Hiroji.Race
-    var gender: String 
+    var gender: Gender
 
     when (Hiroji.Gender) {
-        "Male" -> gender = GenderMap["m"]!!
-        "Female" -> gender = GenderMap["f"]!!
+        Gender.Male -> gender = GenderMap["m"]!!
+        Gender.Female-> gender = GenderMap["f"]!!
         else -> {
             gender = GenderMap["nb"]!!
         }
@@ -40,6 +42,7 @@ fun main() {
 
     println("*Super smash bros announcer voice")
     println("A new Sergal has appeared.")
+    println("Species: $species")
     println("Name: $name")
     println("Race: $race")
     println("Gender: $gender")
