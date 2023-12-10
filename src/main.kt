@@ -3,6 +3,7 @@ import Classes.Shigu
 import Constants.SergalRaceMap
 import Constants.GenderMap
 import Constants.Gender
+import Database.DatabaseOperations
 
 /* 
 Variable declaration: 
@@ -52,6 +53,9 @@ fun main() {
 
     attackCycle()
     attackCycle()
+
+    // databases
+    databaseStuff()
 }
 
 fun attackCycle() {
@@ -60,4 +64,10 @@ fun attackCycle() {
 
     Hiroji.getHp()
     Warrior.getHp()
+}
+
+fun databaseStuff() {
+    println("in db")
+    var Db = DatabaseOperations()
+    Db.createNewDatabase("test.db");
 }
