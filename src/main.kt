@@ -73,5 +73,6 @@ fun databaseStuff() {
     Db.refreshDatabase(databaseName, tableName);
    // Db.connectToDatabase("test.db") 
    Db.insertIntoTable(databaseName, tableName, "Sergal", "Hiroji")
-   Db.insertIntoTable(databaseName, tableName, "Sergal", "Syx")
+   Db.insertIntoTable(databaseName, tableName, "Sergal", "Syx") //does not insert on second go only inserts 1
+   Db.readTable(databaseName, tableName) // does not read
 }

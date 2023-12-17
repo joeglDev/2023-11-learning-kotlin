@@ -6,6 +6,8 @@ import java.sql.DriverManager
 import java.sql.SQLException
 import java.io.File
 import java.nio.file.Paths
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 //to do: refactor filePAth to class property so dont have to enter each time
    class DatabaseOperations {
@@ -21,12 +23,12 @@ import java.nio.file.Paths
              } 
              
             // Drop all tables
-            val dropTablesProcess = ProcessBuilder("sqlite3", filePath, "DROP $tableName IF EXISTS")
+            val dropTablesProcess = ProcessBuilder("sqlite3", filePath, "DROP $tableName IF EXISTS;")
             dropTablesProcess.start()
             println("Dropped table: $tableName")
 
             // Recreate the table
-            val createTableProcess = ProcessBuilder("sqlite3", filePath, "CREATE TABLE IF NOT EXISTS $tableName (id INTEGER PRIMARY KEY, species TEXT, name TEXT)")
+            val createTableProcess = ProcessBuilder("sqlite3", filePath, "CREATE TABLE IF NOT EXISTS $tableName (id INTEGER PRIMARY KEY, species TEXT, name TEXT);")
             createTableProcess.start()
             println("Created new table: $tableName")
             }
@@ -56,14 +58,35 @@ import java.nio.file.Paths
     fun insertIntoTable (databaseName: String, tableName: String, value1: String, value2: String) {
         val filePath = Paths.get("").toAbsolutePath().toString() + "/database/$databaseName"
         try {
-            // Insert into table
-            val insertIntoTableProcess = ProcessBuilder("sqlite3", filePath, "INSERT INTO  $tableName (species, name) VALUES($value1, $value2)")
+            val insertIntoTableProcess = ProcessBuilder("sqlite3", filePath, "INSERT INTO  $tableName (species, name) VALUES('$value1', '$value2');")
             insertIntoTableProcess.start()
             println("Inserted into table: $tableName, values: $value1, $value2")
             } catch (e: SQLException) {
                 println(e)
             }
         } 
+
+    //read from table
+    fun readTable (databaseName: String, tableName: String) {
+        val filePath = Paths.get("").toAbsolutePath().toString() + "/database/$databaseName"
+        try {
+            var readTableProcess = ProcessBuilder("sqlite3", filePath, "SELECT * FROM $tableName;")
+            val process = readTableProcess.start()
+
+            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            var line: String? = reader.readLine()
+            while (line != null) {
+              println(line)
+             line = reader.readLine()
+            }
+
+            reader.close()
+            process.destroy()
+
+        } catch (e: SQLException) {
+            println(e)
+        }
+    }
     }
 
 
