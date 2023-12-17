@@ -31,39 +31,29 @@ import java.nio.file.Paths
             createTableProcess.start()
             println("Created new table: $table")
             }
-    }
 
-    /**
- *
- * @author sqlitetutorial.net
- */
-     /**
-     * Connect to a sample database
-     */
-    fun connect() {
-        var conn: Connection? = null
+    // Connect to a sample database
+    fun connectToDatabase (databaseName: String) {
+        var dbConnection: Connection? = null
+        val filePath = Paths.get("").toAbsolutePath().toString() + "/database/$databaseName"
         try {
-            // db parameters
-            val url = "jdbc:sqlite:/home/hiroji/Documents/code/sqlite/connecttest.db"
             // create a connection to the database
-            conn = DriverManager.getConnection(url)
+            dbConnection = DriverManager.getConnection(filePath)
     
-            println("Connection to SQLite has been established.")
+            println("Connection to SQLite has been established: $filePath.")
             
         } catch (e: SQLException) {
             println(e.message)
         } finally {
             try {
-                conn?.close()
+                dbConnection?.close()
             } catch (ex: SQLException) {
                 println(ex.message)
             }
         }
     }
 
-
-// need a new db created called test db
-
+   }
 
 
  

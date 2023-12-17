@@ -69,4 +69,5 @@ fun attackCycle() {
 fun databaseStuff() {
     var Db = DatabaseOperations()
     Db.refreshDatabase("test.db");
+    Db.connectToDatabase("test.db") 
 }
