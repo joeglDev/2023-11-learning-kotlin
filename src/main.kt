@@ -67,7 +67,6 @@ fun attackCycle() {
 }
 
 fun databaseStuff() {
-    println("in db")
     var Db = DatabaseOperations()
-    Db.createNewDatabase("test.db");
+    Db.refreshDatabase("test.db");
 }
