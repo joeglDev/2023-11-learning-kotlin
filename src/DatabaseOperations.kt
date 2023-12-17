@@ -23,13 +23,17 @@ import java.io.InputStreamReader
              } 
              
             // Drop all tables
-            val dropTablesProcess = ProcessBuilder("sqlite3", filePath, "DROP $tableName IF EXISTS;")
-            dropTablesProcess.start()
+            val dropTablesProcess: ProcessBuilder = ProcessBuilder("sqlite3", filePath, "DROP TABLE IF EXISTS '$tableName';")
+            var process = dropTablesProcess.start()
+            process.waitFor()
+            process.destroy()
             println("Dropped table: $tableName")
 
             // Recreate the table
             val createTableProcess = ProcessBuilder("sqlite3", filePath, "CREATE TABLE IF NOT EXISTS $tableName (id INTEGER PRIMARY KEY, species TEXT, name TEXT);")
-            createTableProcess.start()
+            val process2 = createTableProcess.start()
+            process2.waitFor()
+            process2.destroy()
             println("Created new table: $tableName")
             }
 
@@ -59,7 +63,9 @@ import java.io.InputStreamReader
         val filePath = Paths.get("").toAbsolutePath().toString() + "/database/$databaseName"
         try {
             val insertIntoTableProcess = ProcessBuilder("sqlite3", filePath, "INSERT INTO  $tableName (species, name) VALUES('$value1', '$value2');")
-            insertIntoTableProcess.start()
+            val process = insertIntoTableProcess.start()
+            process.waitFor()
+            process.destroy()
             println("Inserted into table: $tableName, values: $value1, $value2")
             } catch (e: SQLException) {
                 println(e)
@@ -72,6 +78,7 @@ import java.io.InputStreamReader
         try {
             var readTableProcess = ProcessBuilder("sqlite3", filePath, "SELECT * FROM $tableName;")
             val process = readTableProcess.start()
+            process.waitFor()
 
             val reader = BufferedReader(InputStreamReader(process.inputStream))
             var line: String? = reader.readLine()
