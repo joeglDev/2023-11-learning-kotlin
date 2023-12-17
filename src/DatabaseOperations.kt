@@ -7,13 +7,12 @@ import java.sql.SQLException
 import java.io.File
 import java.nio.file.Paths
 
-
+//to do: refactor filePAth to class property so dont have to enter each time
    class DatabaseOperations {
 
     // Create a new database if does not exist
-    fun refreshDatabase(databaseName: String) {
+    fun refreshDatabase(databaseName: String, tableName: String) {
         val filePath = Paths.get("").toAbsolutePath().toString() + "/database/$databaseName"
-        val table = "test_table"
 
         val dbFile = File(filePath)
             if (!dbFile.exists()) {
@@ -22,14 +21,14 @@ import java.nio.file.Paths
              } 
              
             // Drop all tables
-            val dropTablesProcess = ProcessBuilder("sqlite3", filePath, "DROP $table IF EXISTS")
+            val dropTablesProcess = ProcessBuilder("sqlite3", filePath, "DROP $tableName IF EXISTS")
             dropTablesProcess.start()
-            println("Dropped table: $table")
+            println("Dropped table: $tableName")
 
             // Recreate the table
-            val createTableProcess = ProcessBuilder("sqlite3", filePath, "CREATE TABLE IF NOT EXISTS $table (id INTEGER PRIMARY KEY, name TEXT)")
+            val createTableProcess = ProcessBuilder("sqlite3", filePath, "CREATE TABLE IF NOT EXISTS $tableName (id INTEGER PRIMARY KEY, species TEXT, name TEXT)")
             createTableProcess.start()
-            println("Created new table: $table")
+            println("Created new table: $tableName")
             }
 
     // Connect to a sample database
@@ -53,7 +52,19 @@ import java.nio.file.Paths
         }
     }
 
-   }
+    //insert a row into a database
+    fun insertIntoTable (databaseName: String, tableName: String, value1: String, value2: String) {
+        val filePath = Paths.get("").toAbsolutePath().toString() + "/database/$databaseName"
+        try {
+            // Insert into table
+            val insertIntoTableProcess = ProcessBuilder("sqlite3", filePath, "INSERT INTO  $tableName (species, name) VALUES($value1, $value2)")
+            insertIntoTableProcess.start()
+            println("Inserted into table: $tableName, values: $value1, $value2")
+            } catch (e: SQLException) {
+                println(e)
+            }
+        } 
+    }
 
 
  

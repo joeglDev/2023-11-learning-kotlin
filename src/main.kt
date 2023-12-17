@@ -67,7 +67,11 @@ fun attackCycle() {
 }
 
 fun databaseStuff() {
+    val databaseName = "sergals.db"
+    val tableName = "characters_table"
     var Db = DatabaseOperations()
-    Db.refreshDatabase("test.db");
-    Db.connectToDatabase("test.db") 
+    Db.refreshDatabase(databaseName, tableName);
+   // Db.connectToDatabase("test.db") 
+   Db.insertIntoTable(databaseName, tableName, "Sergal", "Hiroji")
+   Db.insertIntoTable(databaseName, tableName, "Sergal", "Syx")
 }
